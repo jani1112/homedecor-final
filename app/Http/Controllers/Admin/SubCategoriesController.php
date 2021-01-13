@@ -18,6 +18,7 @@ use Yajra\DataTables\Facades\DataTables;
 class SubCategoriesController extends Controller
 {
     use MediaUploadingTrait;
+    private $title = 'Manage Sub Categories';
 
     public function index(Request $request)
     {
@@ -83,7 +84,7 @@ class SubCategoriesController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.subCategories.index');
+        return view('admin.subCategories.index',['title' => $this->title],);
     }
 
     public function create()
@@ -92,7 +93,7 @@ class SubCategoriesController extends Controller
 
         $cats = ProductCategory::all()->pluck('category_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.subCategories.create', compact('cats'));
+        return view('admin.subCategories.create',['title' => $this->title], compact('cats'));
     }
 
     public function store(StoreSubCategoryRequest $request)
@@ -118,7 +119,7 @@ class SubCategoriesController extends Controller
 
         $subCategory->load('cat');
 
-        return view('admin.subCategories.edit', compact('cats', 'subCategory'));
+        return view('admin.subCategories.edit',['title' => $this->title], compact('cats', 'subCategory'));
     }
 
     public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory)

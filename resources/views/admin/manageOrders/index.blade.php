@@ -10,47 +10,45 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-OfferProduct">
+                        <table class=" table table-bordered table-striped table-hover datatable datatable-manageOrder">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.manageOrder.fields.id') }}
-                                    </th>
-                                    <th>
+                                <th width="10%">
+
+                                </th>
+                                    <th width="15%">
                                         {{ trans('cruds.manageOrder.fields.bill_no') }}
                                     </th>
-                                    <th>
+                                    <th width="10%">
                                         {{ trans('cruds.manageOrder.fields.customer_id') }}
                                     </th>
-                                    <th>
+                                    <th width="5%">
                                         {{ trans('cruds.manageOrder.fields.total_items') }}
                                     </th>
-                                    <th>
+                                    <th width="5%">
                                         {{ trans('cruds.manageOrder.fields.total_amount') }}
                                     </th>
-                                    <th>
+                                    <th width="5%">
                                         {{ trans('cruds.manageOrder.fields.total_delivery_amount') }}
                                     </th>
-                                    <th>
-                                        {{ trans('cruds.manageOrder.fields.created_at') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.manageOrder.fields.updated_at') }}
-                                    </th>
-                                    <th>
+                                    <th width="5%">
                                         {{ trans('cruds.manageOrder.fields.status') }}
                                     </th>
-                                    <th>
-                                        &nbsp;
+                                    <th width="10%">
+                                        {{ trans('cruds.manageOrder.fields.created_at') }}
+                                    </th>
+                                    <th width="10%">
+                                        {{ trans('cruds.manageOrder.fields.updated_at') }}
+                                    </th>
+                                    <th width="25%">
+                                        Action
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                  @foreach($orderdata as $key => $order)
                                     <tr data-entry-id="{{ $order->id }}">
-                                        <td>
-                                            {{ $order->id ?? '' }}
-                                        </td>
+                                    <td></td>
                                         <td>
                                             {{ $order->bill_no ?? '' }}
                                         </td>
@@ -67,13 +65,17 @@
                                             {{ $order->total_delivery_amount ?? '0' }}
                                         </td>
                                         <td>
+                                        @if($order->order_status == 3)
+                                        <span class="label label-success">{{ App\Models\Order::ORDER_STATUS_SELECT[$order->order_status] ?? '' }}</span>
+                                        @else
+                                        <span class="label label-warning">{{ App\Models\Order::ORDER_STATUS_SELECT[$order->order_status] ?? '' }}</span>                                        
+                                        @endif
+                                        </td>
+                                        <td>
                                             {{ $order->created_at ?? '' }}
                                         </td>
                                         <td>
                                             {{ $order->updated_at ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ App\Models\Order::ORDER_STATUS_SELECT[$order->order_status] ?? '' }}
                                         </td>
                                         <td>
 
@@ -88,8 +90,8 @@
 
 
                                                 <form action="{{ route('admin.manage-orders.destroy', $order->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    @method('DELETE')
-                                                    @csrf
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                                                 </form>
 
@@ -114,7 +116,7 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('manage_orders_delete')
+@can('manage_order_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
@@ -149,7 +151,7 @@
     order: [[ 1, 'asc' ]],
     pageLength: 50,
   });
-  let table = $('.datatable-Orders:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-manageOrder:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

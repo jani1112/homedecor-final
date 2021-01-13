@@ -17,6 +17,7 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
+        for($i= 0;$i <= 20;$i++){
         Order:: insert([
             'bill_no' => Str::random(5) .' - '. rand(5,66), 
             'customer_id' => rand(10,20000),
@@ -30,6 +31,8 @@ class OrderSeeder extends Seeder
             'payment_status' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => null,
         ]);
+        }
     }
 }

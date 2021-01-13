@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AuditLogsController extends Controller
 {
+    private $title = 'Manage Audit Logs';
     public function index(Request $request)
     {
         abort_if(Gate::denies('audit_log_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -61,13 +62,13 @@ class AuditLogsController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.auditLogs.index');
+        return view('admin.auditLogs.index',['title' => $this->title],);
     }
 
     public function show(AuditLog $auditLog)
     {
         abort_if(Gate::denies('audit_log_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.auditLogs.show', compact('auditLog'));
+        return view('admin.auditLogs.show', ['title' => $this->title],compact('auditLog'));
     }
 }

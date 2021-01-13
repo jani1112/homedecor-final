@@ -244,11 +244,23 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 59,
-                'title' => 'manage_order_access',
+                'title' => 'profile_password_edit',
             ],
             [
                 'id'    => 60,
-                'title' => 'profile_password_edit',
+                'title' => 'manage_order_access',
+            ],
+            [
+                'id'    => 61,
+                'title' => 'manage_order_delete',
+            ],
+            [
+                'id'    => 62,
+                'title' => 'manage_order_show',
+            ],
+            [
+                'id'    => 63,
+                'title' => 'manage_order_edit',
             ],
         ];
 

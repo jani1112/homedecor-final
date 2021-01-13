@@ -18,6 +18,7 @@ class ProductCategoryController extends Controller
 {
     use MediaUploadingTrait;
 
+    private $title = 'Manage Categories';
     public function index(Request $request)
     {
         abort_if(Gate::denies('product_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -75,14 +76,14 @@ class ProductCategoryController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.productCategories.index');
+        return view('admin.productCategories.index',['title' => $this->title]);
     }
 
     public function create()
     {
         abort_if(Gate::denies('product_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.productCategories.create');
+        return view('admin.productCategories.create',['title' => $this->title]);
     }
 
     public function store(StoreProductCategoryRequest $request)
@@ -104,7 +105,7 @@ class ProductCategoryController extends Controller
     {
         abort_if(Gate::denies('product_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.productCategories.edit', compact('productCategory'));
+        return view('admin.productCategories.edit',['title' => $this->title], compact('productCategory'));
     }
 
     public function update(UpdateProductCategoryRequest $request, ProductCategory $productCategory)

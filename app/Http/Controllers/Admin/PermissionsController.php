@@ -13,20 +13,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PermissionsController extends Controller
 {
+    private $title = 'Manage Permission';
     public function index()
     {
         abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $permissions = Permission::all();
 
-        return view('admin.permissions.index', compact('permissions'));
+        return view('admin.permissions.index', ['title' => $this->title],compact('permissions'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.permissions.create');
+        return view('admin.permissions.create',['title' => $this->title]);
     }
 
     public function store(StorePermissionRequest $request)
@@ -40,7 +41,7 @@ class PermissionsController extends Controller
     {
         abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.permissions.edit', compact('permission'));
+        return view('admin.permissions.edit',['title' => $this->title], compact('permission'));
     }
 
     public function update(UpdatePermissionRequest $request, Permission $permission)
@@ -54,7 +55,7 @@ class PermissionsController extends Controller
     {
         abort_if(Gate::denies('permission_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.permissions.show', compact('permission'));
+        return view('admin.permissions.show',['title' => $this->title], compact('permission'));
     }
 
     public function destroy(Permission $permission)

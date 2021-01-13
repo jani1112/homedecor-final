@@ -19,6 +19,7 @@ use Yajra\DataTables\Facades\DataTables;
 class ProductController extends Controller
 {
     use MediaUploadingTrait;
+    private $title ='Manage Products';
 
     public function index(Request $request)
     {
@@ -92,7 +93,7 @@ class ProductController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.products.index');
+        return view('admin.products.index',['title' => $this->title]);
     }
 
     public function create()
@@ -103,7 +104,7 @@ class ProductController extends Controller
 
         $subcatids = SubCategory::all()->pluck('subcategory_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.products.create', compact('catids', 'subcatids'));
+        return view('admin.products.create',['title' => $this->title], compact('catids', 'subcatids'));
     }
 
     public function store(StoreProductRequest $request)
@@ -131,7 +132,7 @@ class ProductController extends Controller
 
         $product->load('catid', 'subcatid');
 
-        return view('admin.products.edit', compact('catids', 'subcatids', 'product'));
+        return view('admin.products.edit', ['title' => $this->title],compact('catids', 'subcatids', 'product'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)

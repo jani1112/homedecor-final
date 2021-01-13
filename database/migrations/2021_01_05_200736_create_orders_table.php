@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_status')->comment('1:processing,2:out for delivery,3:delivered');
             $table->string('payment_status')->comment('0:Paid, 1:Cod');
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

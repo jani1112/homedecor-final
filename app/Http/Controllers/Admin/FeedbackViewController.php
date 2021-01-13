@@ -12,6 +12,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class FeedbackViewController extends Controller
 {
+    private $title = 'Manage Feedback Views';
+
     public function index(Request $request)
     {
         abort_if(Gate::denies('feedback_view_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -60,7 +62,7 @@ class FeedbackViewController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.feedbackViews.index');
+        return view('admin.feedbackViews.index',['title' => $this->title]);
     }
 
     public function show(FeedbackView $feedbackView)
@@ -69,7 +71,7 @@ class FeedbackViewController extends Controller
 
         $feedbackView->load('product');
 
-        return view('admin.feedbackViews.show', compact('feedbackView'));
+        return view('admin.feedbackViews.show',['title' => $this->title], compact('feedbackView'));
     }
 
     public function destroy(FeedbackView $feedbackView)

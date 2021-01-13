@@ -14,13 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
 {
+    private $title = 'Manage Users';
     public function index()
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $users = User::with(['roles'])->get();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index',['title' => $this->title], compact('users'));
     }
 
     public function create()
@@ -29,7 +30,7 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.users.create',['title' => $this->title], compact('roles'));
     }
 
     public function store(StoreUserRequest $request)
@@ -48,7 +49,7 @@ class UsersController extends Controller
 
         $user->load('roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('admin.users.edit',['title' => $this->title], compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -65,7 +66,7 @@ class UsersController extends Controller
 
         $user->load('roles');
 
-        return view('admin.users.show', compact('user'));
+        return view('admin.users.show',['title' => $this->title], compact('user'));
     }
 
     public function destroy(User $user)

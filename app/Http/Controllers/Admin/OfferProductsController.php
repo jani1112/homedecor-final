@@ -14,13 +14,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OfferProductsController extends Controller
 {
+    private $title = 'Manage Offer Produts';
+
     public function index()
     {
         abort_if(Gate::denies('offer_product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $offerProducts = OfferProduct::with(['offer_product'])->get();
 
-        return view('admin.offerProducts.index', compact('offerProducts'));
+        return view('admin.offerProducts.index', ['title' => $this->title],compact('offerProducts'));
     }
 
     public function create()
@@ -29,7 +31,7 @@ class OfferProductsController extends Controller
 
         $offer_products = Product::all()->pluck('product_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.offerProducts.create', compact('offer_products'));
+        return view('admin.offerProducts.create', ['title' => $this->title],compact('offer_products'));
     }
 
     public function store(StoreOfferProductRequest $request)
@@ -47,7 +49,7 @@ class OfferProductsController extends Controller
 
         $offerProduct->load('offer_product');
 
-        return view('admin.offerProducts.edit', compact('offer_products', 'offerProduct'));
+        return view('admin.offerProducts.edit',['title' => $this->title], compact('offer_products', 'offerProduct'));
     }
 
     public function update(UpdateOfferProductRequest $request, OfferProduct $offerProduct)
@@ -63,7 +65,7 @@ class OfferProductsController extends Controller
 
         $offerProduct->load('offer_product');
 
-        return view('admin.offerProducts.show', compact('offerProduct'));
+        return view('admin.offerProducts.show', ['title' => $this->title],compact('offerProduct'));
     }
 
     public function destroy(OfferProduct $offerProduct)

@@ -15,6 +15,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class FeaturedProductsController extends Controller
 {
+    private $title = 'Orders';
     public function index(Request $request)
     {
         abort_if(Gate::denies('featured_product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

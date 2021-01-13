@@ -23,13 +23,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
-    Route::resource('users', 'UsersController');
+    Route::resource('users','UsersController');
 
     // Product Categories
     Route::delete('product-categories/destroy', 'ProductCategoryController@massDestroy')->name('product-categories.massDestroy');
     Route::post('product-categories/media', 'ProductCategoryController@storeMedia')->name('product-categories.storeMedia');
     Route::post('product-categories/ckmedia', 'ProductCategoryController@storeCKEditorImages')->name('product-categories.storeCKEditorImages');
-    Route::resource('product-categories', 'ProductCategoryController', ['except' => ['show']]);
+    Route::resource('product-categories','ProductCategoryController', ['except' => ['show']]);
 
     // Product Tags
     Route::delete('product-tags/destroy', 'ProductTagController@massDestroy')->name('product-tags.massDestroy');
@@ -49,9 +49,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Featured Products
     Route::delete('featured-products/destroy', 'FeaturedProductsController@massDestroy')->name('featured-products.massDestroy');
-    Route::resource('featured-products', 'FeaturedProductsController');
+    Route::resource('featured-products','FeaturedProductsController');
 
-    // Offer Products
+    //Offer Products
     Route::delete('offer-products/destroy', 'OfferProductsController@massDestroy')->name('offer-products.massDestroy');
     Route::resource('offer-products', 'OfferProductsController');
 
@@ -73,7 +73,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('reports', 'ReportsController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
 
     // Manage Orders
-    Route::resource('manage-orders', 'ManageOrdersController', ['except' => ['create', 'store']]);
+    Route::delete('manage-orders/destroy', 'ManageOrdersController@massDestroy')->name('manage-orders.massDestroy');
+    Route::resource('manage-orders', 'ManageOrdersController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password

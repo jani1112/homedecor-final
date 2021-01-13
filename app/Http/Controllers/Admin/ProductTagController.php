@@ -13,20 +13,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductTagController extends Controller
 {
+    private $title = 'Manage Product Tags';
     public function index()
     {
         abort_if(Gate::denies('product_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $productTags = ProductTag::all();
 
-        return view('admin.productTags.index', compact('productTags'));
+        return view('admin.productTags.index',['title' => $this->title], compact('productTags'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('product_tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.productTags.create');
+        return view('admin.productTags.create',['title' => $this->title]);
     }
 
     public function store(StoreProductTagRequest $request)
@@ -40,7 +41,7 @@ class ProductTagController extends Controller
     {
         abort_if(Gate::denies('product_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.productTags.edit', compact('productTag'));
+        return view('admin.productTags.edit',['title' => $this->title], compact('productTag'));
     }
 
     public function update(UpdateProductTagRequest $request, ProductTag $productTag)
@@ -54,7 +55,7 @@ class ProductTagController extends Controller
     {
         abort_if(Gate::denies('product_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.productTags.show', compact('productTag'));
+        return view('admin.productTags.show',['title' => $this->title], compact('productTag'));
     }
 
     public function destroy(ProductTag $productTag)

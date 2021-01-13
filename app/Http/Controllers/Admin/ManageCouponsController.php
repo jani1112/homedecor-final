@@ -36,13 +36,13 @@ class ManageCouponsController extends Controller
     {
         $manageCoupon = ManageCoupon::create($request->all());
 
-        return redirect()->route('admin.manage-coupons.index',['title' =>  $this->title]);
+        return redirect()->route('admin.manage-coupons.index');
     }
 
     public function edit(ManageCoupon $manageCoupon)
     {
         abort_if(Gate::denies('manage_coupon_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+       
         return view('admin.manageCoupons.edit',['title' =>  $this->title], compact('manageCoupon'));
     }
 
