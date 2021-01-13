@@ -1,6 +1,19 @@
 <?php
 
-Route::redirect('/', '/login');
+Route::get('/', function(){
+    return view('front.landing',['title' => 'home']);
+})->name('homepage');
+//individual pages
+
+Route::view('/contact','front.contact',['title' => 'Contact Us'])->name('contact');
+Route::view('/checkout','front.checkout',['title' => 'Checkout'])->name('checkout');
+Route::view('/cart','front.cart',['title' => 'Cart'])->name('cart');
+Route::view('/shop-sidebar','front.shop-sidebar',['title' => 'shop-sidebar'])->name('shop-sidebar');
+Route::view('/faq','front.faq',['title' => 'faq'])->name('faq');
+Route::view('/singleproduct','front.singleproduct',['title' => 'singleproduct'])->name('singleproduct');
+
+//end
+
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
