@@ -4,6 +4,7 @@
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{$title}}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -29,6 +30,8 @@
 @include('front.layouts.footer')
 @include('front.layouts.afterfooter')
 @include('front.login')
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> -->
+
     <!-- Vendor JS -->
     <script src="{{URL::asset('assets/js/vendors.js')}}"></script>
 
@@ -36,7 +39,6 @@
     <script src="{{URL::asset('assets/js/active.js')}}"></script>
 
     <!--=====  End of JS files ======-->
-
 <script src="{{URL::asset('js/main.js')}}"></script>
 
 <script src="{{URL::asset('login/js/jquery-1.10.2.js')}}" type="text/javascript"></script>

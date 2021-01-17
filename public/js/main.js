@@ -50,4 +50,8 @@ $(document).ready(function () {
       $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
     }, 350);
   })
+
+//alert session on CRUD operation in admin 
+$(".alert").delay(2000).slideUp(400);
+
 })

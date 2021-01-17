@@ -88,7 +88,7 @@
 /*     padding: 11px 15px; */
 }
 .login .modal-body{
-/*     background-color: #eeeeee; */
+    background-color: #eeeeee;
 }
 .login .division {
     float: none;
@@ -138,17 +138,11 @@
 .login .social .google{
     background-color: #F74933;
 }
-.login .social .github{
-    background-color: #403A3A;
-}
 .login .facebook:hover{
     background-color: #6E83CD;
 }
 .login .google:hover{
     background-color: #FF7566;
-}
-.login .github:hover{
-    background-color: #4D4D4d;;
 }
 .login .forgot {
     color: #797979;
